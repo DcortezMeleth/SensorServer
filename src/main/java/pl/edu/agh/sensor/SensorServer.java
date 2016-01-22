@@ -17,6 +17,8 @@ public class SensorServer extends WebSocketServer {
 
     private static final int PORT = 1777;
 
+    private static final double THRESHOLD = 0.01;
+
     private static final String FILENAME = "results_";
 
     private static int counter = 1;
@@ -60,6 +62,8 @@ public class SensorServer extends WebSocketServer {
             try {
                 file = new FileWriter(FILENAME + (counter++) + ".csv");
                 files.put(conn, file);
+                file.append("gyr_x,gyr_y,gyr_z,acc_x,acc_y,acc_z\n");
+                file.flush();
             } catch (IOException e) {
                 e.printStackTrace();
             }
